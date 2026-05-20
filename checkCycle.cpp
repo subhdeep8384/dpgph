@@ -65,12 +65,33 @@ bool cycleDetection(vector<vector<int>> &edges , int n , int m ){
 
     return ans ;
 }
+int dfsIslands(int i , int j , vector<vector<bool>>&visited , vector<vector<int>>&grid){
+    if(i < 0 || j < 0 || i >= grid.size() || j >= grid[0].size() || visited[i][j] || grid[i][j] != 1 ) return;
+    visited[i][j] = true ;
+    dfsIslands(i - 1 , j , visited , grid);
+    dfsIslands(i + 1 , j , visited , grid );
+    dfsIslands(i , j+ 1 , visited , grid );
+    dfsIslands(i , j - 1, visited , grid) ;
+}
+int numberIslands(vector<vector<int>>grid){
+    int islands = 0 ;
+    vector<vector<bool>> visited(grid.size() , vector<bool>(grid[0].size() , false ));
+    for(int i = 0 ; i < grid.size() ; i++){
+        for(int j = 0 ; j < grid[0].size() ; j++){
+            if(grid[i][j] == 1 && !visited[i][j]){
+                dfsIslands(i , j , visited , grid ) ;
+                islands++ ;
+            }
+        }
+    }
+    return islands;
+}
 int main(){
     vector<vector<int>> edges ;
    edges.push_back({1 , 2});
     edges.push_back({2 , 3});
     edges.push_back({2 , 4});
-    edges.push_back({3 , 4});
+    edges.push_back({3 , 4}); 
     edges.push_back({1 , 4});
 
     edges.push_back({5 , 6});
