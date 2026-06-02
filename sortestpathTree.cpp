@@ -1,3 +1,4 @@
+#include<queue>
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -17,6 +18,28 @@ void dfs(int node,
             onesCount[node] + value[child];
 
         dfs(child, node, adj, value, onesCount);
+    }
+}
+
+int bfs(int node , vector<int>values , vector<vector<int>>adj , vector<int>ans , vector<bool>visited , queue<int>q){
+    ans[node] = values[node] ;  
+    q.push(node) ;
+   
+    while(!q.empty()){
+        int parent = q.front() ;
+        q.pop() ;
+
+        for(auto children : adj[parent]){
+            if(!visited[children]){
+                visited[children] = true ;
+                q.push(children);
+                if(values[children] == 1){
+                    ans[children] = ans[parent] + 1 ;
+                }else{
+                    ans[children] = ans[parent] ;
+                }
+            }
+        }
     }
 }
 
