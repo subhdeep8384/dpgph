@@ -69,4 +69,5 @@ int main(){
     dijsktra(V , 0 , g);
 
     return 0;
+    priority_queue<pair<int , int > , vector<pair<int , int>> , greater<pair<int , int>>> ss;
 }
